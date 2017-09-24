@@ -61,9 +61,11 @@
 		<!-- Venus transit: similar in size to Jupiter when detecting in an exoplanet system. -->
 				<section data-background-image="Suplementary/venus_transit.gif">
 					<aside class="notes">
-			This is an actual footage of Venus transiting in front the sun. What we see here is relatively similar to observing a jupiter size planet transiting in front of its host star.
-			There are good ground based methods in detecting larger size exoplanets, such as dopler effect. Where we monitor how the star wobbles around the common center of mass between itself and the planet,
-			from that astronomers are able to determine the characteristics of the exoplanet.
+			This is an actual footage of Venus transiting in front the sun. What we see here is relatively similar to observing a jupiter size exoplanet transiting in front of its host star.
+			If we were to try to detect the planets just by trying to look for them - we wouldnt succeed, the light reflected from the planet is about 10^-9 times fainter that the
+			brightness of the hosting star. Therefore we have to use indirect detection methods, by carefully monitoring the characteristics of the star itself.
+			One of the methods to detect a planet of this size, would be Doppler effect technique, also known as Radial-Velocity method. It relies on detecting the wobbling of the star,
+			caused by star orbiting a common center of mass between itself and large planet.
 					</aside>
 				</section>
 
@@ -76,45 +78,72 @@
 
 		<!-- Mercury Transit GIF -->
 		<!-- Mercury Transit similar to earth detection in exoplanetary system – can only be done from space.
-		Even then not easy.-->
+		Even then not easy. -->
+
 				<section data-background-image="Suplementary/mercury_transit.gif">
 					<aside class="notes">
-			However, if the planet is something more like our earth. Thinks get a bit more complicated, previosly described wobble method is not able to detect the wobble of the sun caused by a smaller planet.
-			
+			Now what about something smaller. This is Mercury transiting in front of the sun, which is analogous to detecting an earth-like exoplanet.
+			Currently, Radial-velocity techniques are able to register 1min/sec wobble leading to discoveries of gas giants at most,
+			and is not enough to detect an earth-like planet, which cause the star to wobble no more than a cm/sec. Now is there an alternative method for indirect
+			detection of a planet?
+					</aside>
+				</section>
+
+		<!-- Transit Photometry -->
+				<section data-background-image="Suplementary/transit_multiple.gif">
+					<aside class="notes">
+			An alternative is called transit photometry - it is an indirect planet detection method, where the brightness of the star (aka flux) is recorded as a function of time.
+			It could register a dim in the flux hopefully produced by an earth-sized planet shadow swipping across the telescopes detector. An earth like planet, produces one ten thousand
+			of a change in brightness compared to Jupiter like planets producing a change of one percent. Now there is a nother problem, that the planet has to transit in front of the star
+			at a convinient angle of sight.
+
+			A probability of an earth-like planet being at a convinient angle of sight is only .5 percent, therefore to observe just one planet we would have to monitor 200 stars.
 					</aside>
 				</section>
 
 		<!-- Intro to Kepler slide -->
 				<section>
-					<p>For an earth like analog</p>
-					<ol>
-						<li>0.5 percent probability to orbit a star at convinient angle of sight</li>
-						<li>Existing Validation methods review</li>
-						<li>Our work and results</li>
-					</ol>
-					<p><br></p>
-					<aside class="notes">
-            some notes here
-					</aside>
-				</section>
-
-<!-- Transit Photometry -->
-				<section data-background-image="Suplementary/transit_multiple.gif">
-					<aside class="notes">
-			Some notes here
-					</aside>
-				</section>
-
-		<!-- Summary slide -->
-				<section>
-					<h3>Brief Summary</h3>
-					<p class="fragment fade-out">When searching for new planets through transit detection in NASA's Kepler satelite data, a significant portion of time is spent on validation of the detected signal via:</p>
+					<p>Kepler Mission</p>
 					<ul>
-						<li class="fragment fade-out">Slow Monte-Carlo validation methods</li>
-						<li class="fragment fade-out">Time consuimg follow-up observations</li>
+						<li>4.5 million stars under the ubservation field</li>
+						<li>150 thousand Kepler Objects of Interest (KOI)</li>
+						<li>Planetary signal is classified into</li>
+							<ul>
+								<li>False Positive</li>
+								<li>Candidate</li>
+									<ul>
+										<li>Confirmed</li>
+										<li>False Positive</li>
+									</ul>
+							</ul>
 					</ul>
 					<p><br></p>
-					<p class="fragment fade-up">In this work:</p>
+					<p>Kepler Mission Science pipeline refer to Jenkins et al. (2010). Kepler mission achievements and contributions to astro. community refer to Batalha (2010).</p>
+					<aside class="notes">
+            Hence, Kepler satelite has 4 and a half million stars under the observation field, with 150 that are suspected to harbour a planet labeled as KOI and actively monitored.
+			Now the raw data of the stars flux time series and engineering data is downlinked from the satelite and goes through a big processing pipeline, where the time series are
+			calibreted with engineering data accordingly and continiues into a large processing step where planetary signals are detected and extracted. Now the classification itself is not easy
+			as there are at least 12 different false positive scenarious, such as combinations of giant planets and eclipsing binaries that can create a false positive signal or distort a planetary
+			signal. The step of classifying planet from candidate into planet or fp is called validation, which is the subject of our work.
+					</aside>
+				</section>
+
+		<!-- Problem slide -->
+				<section>
+					<h3>Problem</h3>
+					<p class="fragment fade-out">When searching for new planets through transit detection in NASA's Kepler satelite data,
+						a significant portion of time is spent on validation of the detected signal via:</p>
+					<ul>
+						<li>Slow Monte-Carlo validation methods</li>
+							<ul>
+								<li><b>Blender</b> (Torres et al. 2010)</li>
+								<li><b>Vespa</b> (Morton & Johnson 2011)</li>
+								<li><b>Pastis</b> (Diaz et al. 2014)</li>
+							</ul>
+						<li>Time consuimg follow-up observations</li>
+					</ul>
+					<p style="line-height:1px;"><br></p>
+					<h3 class="fragment fade-up">In this work:</h3>
 					<ul>
 						<li class="fragment fade-up">Optimise and test ML methods in classying planetary signal into False Positive or Confrimed</li>
 						<li class="fragment fade-up">Evaluate the quality of predicted False Positive probabilities and compare to existing validation methods</li>
@@ -124,28 +153,213 @@
 					</aside>
 				</section>
 
-		<!-- Outlie slide -->
+		<!-- Preprocessing slide -->
+			<section>
 				<section>
-					<h3>Presentation Outline</h3>
-					<ol>
-						<li>How do we look for planets?</li>
+					<h3>Preprocessing & Data</h3>
+					<p>We follow procedures in McCauliff et al. (2014) and use:</p>
+					<ul>
+						<li>Thershold Crossing Events (TCE) catalog</li>
 							<ul>
-								<li style="line-height:2.0;">What are the challenges?</li>
-								<li style="line-height:2.0;">Where does the data come from?</li>
+								<li>34,024 detected TCEs</li>
 							</ul>
-						<li style="line-height:2.0;">Existing Validation methods review</li>
-						<li>Our work and results</li>
-					</ol>
-					<p><br></p>
+						<li>KOI catalog (Burke et al. 2014)</li>
+							<ul>
+								<li>Known, already validated planets</li>
+							</ul>
+					</ul>
+					<p>Matching two catalogs gives us 4049 instances for training:</p>
+					<ul>
+						<li>2238 Confirmed planets</li>
+						<li>1810 False Positives</li>
+						<li>1189 unlabeled signals</li>
+						<li>139 features per instance</li>
+					</ul>
 					<aside class="notes">
-            some notes here
+			some notes here
 					</aside>
 				</section>
+				<!-- Two additional statistics slide -->
+				<section>
+					<h4>Two additional statistics computed:</h4>
+					<ul>
+						<li>Maximum ephemeris correlation (McCauliff et al. 2014)</li>
+						<li>Self Organising Map statistic (Armstrong et al. 2016)</li>
+					</ul>
+					<aside class="notes">
+			some notes here
+					</aside>
 
-<!-- Test IMage -->
+				</section>
+			</section>
+		<!-- Feature importance and correlation -->
+			<section>
+				<section>
+					<h3>Feature Importance</h3>
+					<p>Feature Importance (following McCauliff et al. 2014):</p>
+					<ol>
+						<li>Fit Random Forest model</li>
+						<li>Permute an attribute within out-of-bag data of the tree</li>
+						<li>Predict and compute the error</li>
+					</ol>
+					<p>Mean increase in error is the importance of the permuted feature</p>
+					<h3>Correlation</h3>
+					<ol>
+						<li>Compute Pearson's correlation between each attribute</li>
+						<li>If correlation above threshold, remove least important attribute</li>
+					</ol>
+				</section>
+				<section>
+					<img src="Suplementary/feature_imp.png" width="80%">
+				</section>
+			</section>
+
+		<!-- Methods and Results -->
+			<section>
+				<section>
+					<h3>Methods and Results</h3>
+					<table>
+				    	<thead><tr>
+				            <th>Model</th>
+				            <th>No. of param. comb.</th>
+				        </tr></thead>
+				        <tbody><tr>
+				            <td>Random Forest</td>
+				            <td align="center">4</td>
+				        </tr>
+				        <tr>
+				            <td>Extra Trees</td>
+				            <td align="center">16</td>
+				        </tr>
+						<tr>
+							<td>Decision Tree</td>
+							<td align="center">3</td>
+						</tr>
+						<tr>
+							<td>K-NN</td>
+							<td align="center">24</td>
+						</tr>
+						<tr>
+							<td>SVM</td>
+							<td align="center">6</td>
+						</tr>
+						<tr>
+							<td>Neural Network</td>
+							<td align="center">327</td>
+						</tr>
+						<tr>
+							<td>Logistic Regression</td>
+							<td align="center">2</td>
+						</tr>
+						<tr>
+							<td>LDA</td>
+							<td align="center">1</td>
+						</tr>
+						<tr>
+							<td>QDA</td>
+							<td align="center">1</td>
+						</tr>
+						<tr>
+							<td>GP</td>
+							<td align="center">1</td>
+						</tr>
+					</tbody>
+				    </table>
+				</section>
+				<section>
+					<table>
+						<thead><tr>
+							<th>Model</th>
+							<th>AUC</th>
+							<th>Precision</th>
+							<th>Recall</th>
+							<th>Brier</th>
+						</tr></thead>
+						<tbody><tr>
+							<td>Random Forest</td>
+							<td align="center">0.99</td>
+							<td align="center">0.96</td>
+							<td align="center">0.94</td>
+							<td align="center">0.03</td>
+						</tr>
+						<tr>
+							<td>Extra Trees</td>
+							<td align="center">0.99</td>
+							<td align="center">0.97</td>
+							<td align="center">0.94</td>
+							<td align="center">0.04</td>
+						</tr>
+						<tr>
+							<td>Gaussian Process</td>
+							<td align="center"><font color="red"><b>0.98</b></font></td>
+							<td align="center">0.92</td>
+							<td align="center">0.90</td>
+							<td align="center">0.04</td>
+						</tr>
+						<tr>
+							<td>Logistic Regression</td>
+							<td align="center">0.97</td>
+							<td align="center">0.92</td>
+							<td align="center">0.90</td>
+							<td align="center">0.06</td>
+						</tr>
+						<tr>
+							<td>LDA</td>
+							<td align="center">0.97</td>
+							<td align="center">0.92</td>
+							<td align="center"><font color="red"><b>0.87</b></font></td>
+							<td align="center">0.07</td>
+						</tr>
+						<tr>
+							<td>Ridge Classifier</td>
+							<td align="center">0.97</td>
+							<td align="center">0.92</td>
+							<td align="center">0.87</td>
+							<td align="center">0.10</td>
+						</tr>
+						<tr>
+							<td>SVM</td>
+							<td align="center">0.97</td>
+							<td align="center">0.92</td>
+							<td align="center">0.90</td>
+							<td align="center">0.17</td>
+						</tr>
+						<tr>
+							<td>K-NN</td>
+							<td align="center">0.96</td>
+							<td align="center">0.98</td>
+							<td align="center">0.89</td>
+							<td align="center">0.07</td>
+						</tr>
+						<tr>
+							<td>Neural Network</td>
+							<td align="center">0.96</td>
+							<td align="center">0.92</td>
+							<td align="center">0.89</td>
+							<td align="center">0.07</td>
+						</tr>
+						<tr>
+							<td>QDA</td>
+							<td align="center">0.95</td>
+							<td align="center">0.96</td>
+							<td align="center"><font color="red"><b>0.57</b></font></td>
+							<td align="center">0.20</td>
+						</tr>
+						<tr>
+							<td>Decision Tree</td>
+							<td align="center">0.92</td>
+							<td align="center">0.95</td>
+							<td align="center">0.93</td>
+							<td align="center">0.06</td>
+						</tr>
+					</tbody>
+					</table>
+				</section>
 				<section>
 					<img src="Suplementary/lab_unlab_means_md_DARK.png" width="80%">
 				</section>
+			</section>
+
 			</div>
 		</div>
 
@@ -162,10 +376,14 @@
 				history: true,
 				center: true,
 				transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
-
+				math: {
+							mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+							config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+						},
 				// Parallax scrolling
 				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
 				// parallaxBackgroundSize: '2100px 900px',
+
 
 				// Optional libraries used to extend on reveal.js
 				dependencies: [
@@ -173,7 +391,8 @@
 					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/math/math.js', async: true }
 				]
 			});
 
