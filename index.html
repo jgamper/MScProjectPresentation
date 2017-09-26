@@ -47,9 +47,9 @@
 					<p>
 						<br>
 						<br>
-						<span style="font-size:0.5em">Jevgenij Gamper</span><br>
-						<span style="font-size:0.5em">Supervised by: David Armstrong, Theo Damoulas</span><br>
-						<span style="font-size:0.5em">MSc Mathematics of Systems project presentation 27/09/2017</span>
+						<span style="font-size:0.6em">Jevgenij Gamper</span><br>
+						<span style="font-size:0.6em">Supervised by: David Armstrong, Theo Damoulas</span><br>
+						<span style="font-size:0.6em">MSc Mathematics of Systems project presentation 27/09/2017</span>
 					</p>
 					<aside class="notes">
             Now lets switch gears for a second, and suppose we are looking into finding another habitable earth-like planet. How would we go about it? What are the methods out there,
@@ -105,7 +105,7 @@
 				<section>
 					<p>Kepler Mission</p>
 					<ul>
-						<li>4.5 million stars under the ubservation field</li>
+						<li>4.5 million stars under the observation field</li>
 						<li>150 thousand Kepler Objects of Interest (KOI)</li>
 						<li>Planetary signal is classified into</li>
 							<ul>
@@ -130,26 +130,37 @@
 
 		<!-- Problem slide -->
 				<section>
-					<h3>Problem</h3>
-					<p class="fragment fade-out">When searching for new planets through transit detection in NASA's Kepler satelite data,
-						a significant portion of time is spent on validation of the detected signal via:</p>
-					<ul>
-						<li>Slow Monte-Carlo validation methods</li>
+					<section>
+						<h3>Problem</h3>
+						<p>When searching for new planets through transit detection in NASA's Kepler satelite data,
+							a significant portion of time is spent on validation of the detected signal via:</p>
+						<ul>
+							<li>Slow Monte-Carlo validation methods</li>
+								<ul>
+									<li><b>Blender</b> (Torres et al. 2010)</li>
+									<li><b>Vespa</b> (Morton & Johnson 2011)</li>
+									<li><b>Pastis</b> (Diaz et al. 2014)</li>
+								</ul>
+							<li>Time consuimg follow-up observations</li>
+						</ul>
+					</section>
+					<section>
+						<h3>In this work:</h3>
+						<ul>
+							<li>Optimise and test ML methods in classying planetary signal into False Positive or Confrimed</li>
+							<li>Evaluate the quality of predicted False Positive probabilities and compare to existing validation methods</li>
 							<ul>
-								<li><b>Blender</b> (Torres et al. 2010)</li>
-								<li><b>Vespa</b> (Morton & Johnson 2011)</li>
-								<li><b>Pastis</b> (Diaz et al. 2014)</li>
+								<li>Vespa</b> (Morton & Johnson 2011)</li>
 							</ul>
-						<li>Time consuimg follow-up observations</li>
-					</ul>
-					<p style="line-height:1px;"><br></p>
-					<h3 class="fragment fade-up">In this work:</h3>
-					<ul>
-						<li class="fragment fade-up">Optimise and test ML methods in classying planetary signal into False Positive or Confrimed</li>
-						<li class="fragment fade-up">Evaluate the quality of predicted False Positive probabilities and compare to existing validation methods</li>
-					</ul>
+						</ul>
+						<p><b>Pre-trained models would allow to:</b></p>
+						<ul>
+							<li>Quickly validate planets, and only focus on uncertain signals</li>
+							<li>Save on follow up observation resources</li>
+						</ul>
+					</section>
 					<aside class="notes">
-            some notes here
+			some notes here
 					</aside>
 				</section>
 
@@ -186,6 +197,7 @@
 						<li>Maximum ephemeris correlation (McCauliff et al. 2014)</li>
 						<li>Self Organising Map statistic (Armstrong et al. 2016)</li>
 					</ul>
+					<img src="Suplementary/transit_example.png" width="40%">
 					<aside class="notes">
 			some notes here
 					</aside>
@@ -361,6 +373,18 @@
 				</section>
 
 				<section>
+					<ul>
+						<li>Simple decision boundaries are sufficient</li>
+						<li>Decision Tree ensembles are "to good" for us</li>
+						<ul>
+							<li>Investigate the normality of each point using properties of Random Forests (Liu et al. 2008)</li>
+						</ul>
+					</ul>
+					<p>For each instance $i$, compute normality score $N_i$</p>
+					<p>$$N_i = 2^{\frac{\mathbf{E}(D_i)}{\mathbf{E}(P_i)}}$$</p>
+				</section>
+
+				<section>
 					<img src="Suplementary/normality_hist.png" width="80%">
 				</section>
 			</section>
@@ -385,39 +409,39 @@
 						</tr>
 						<tr>
 							<td>Random Forest</td>
-							<td align="center">0.99</td>
-							<td align="center">0.97</td>
-							<td align="center">0.94</td>
-							<td align="center">0.04</td>
-							<td align="center">0.94</td>
-							<td align="center">0.04</td>
+							<td align="center">0.14</td>
+							<td align="center">0.26</td>
+							<td align="center">2.08</td>
+							<td align="center">1.15</td>
+							<td align="center">3.66</td>
+							<td align="center">1.01</td>
 						</tr>
 						<tr>
 							<td>Logistic Regression</td>
-							<td align="center"><b>0.98</b></font></td>
-							<td align="center">0.92</td>
-							<td align="center">0.90</td>
-							<td align="center">0.04</td>
-							<td align="center">0.94</td>
-							<td align="center">0.04</td>
+							<td align="center">0.15</td>
+							<td align="center">0.31</td>
+							<td align="center">2.02</td>
+							<td align="center">1.15</td>
+							<td align="center">3.33</td>
+							<td align="center">0.73</td>
 						</tr>
 						<tr>
 							<td>LDA</td>
-							<td align="center">0.97</td>
-							<td align="center">0.92</td>
-							<td align="center">0.90</td>
-							<td align="center">0.06</td>
-							<td align="center">0.94</td>
-							<td align="center">0.04</td>
+							<td align="center">0.15</td>
+							<td align="center">0.31</td>
+							<td align="center">1.76</td>
+							<td align="center">1.32</td>
+							<td align="center">2.73</td>
+							<td align="center">0.75</td>
 						</tr>
 						<tr>
 							<td>Gaussian Process</td>
-							<td align="center">0.97</td>
-							<td align="center">0.92</td>
-							<td align="center">0.90</td>
-							<td align="center">0.06</td>
-							<td align="center">0.94</td>
-							<td align="center">0.04</td>
+							<td align="center">0.16</td>
+							<td align="center">0.29</td>
+							<td align="center">1.76</td>
+							<td align="center">1.21</td>
+							<td align="center">2.48</td>
+							<td align="center">0.79</td>
 						</tr>
 					</tbody>
 					</table>
@@ -431,6 +455,41 @@
 				</section>
 			</section>
 
+			<section>
+				<h3>Summary</h3>
+				<ol>
+					<li>Built 9 dimensional representation for each TCE</li>
+					<li>Tested classification</li>
+					<li>Compared posterior probabilities to <b>Vespa</b></li>
+					<li>Results:</li>
+					<ul>
+						<li>Simple decision boundary</li>
+						<li>Possibly imbalanced FP scenarios</li>
+						<li>High posterior variance for misclassified planets</li>
+					</ul>
+				</ol>
+			</section>
+
+			<section>
+				<p>References:</p>
+				<ul>
+					<li style="font-size:0.6em">Armstrong D.J., Pollaco D., Santerne A., 2016, MNRAS, 465, 2634</li>
+					<li style="font-size:0.6em">Batalha N. M., 2014, TAJS, 111</li>
+					<li style="font-size:0.6em">Jenkins J. M., TAJL, 713</li>
+					<li style="font-size:0.6em">Torres G., et al., 2010, AJ, 727</li>
+					<li style="font-size:0.6em">Morton T. D., Johnson J. A., 2011, AJ, 738</li>
+					<li style="font-size:0.6em">Diaz R. F., et al., 2014, MNRAS, 441</li>
+					<li style="font-size:0.6em">Burke C. J., et al., 2014, AJS, 210</li>
+					<li style="font-size:0.6em">McCaullif S. D., et al, 2014, AJ, 806</li>
+				</ul>
+				<p>Resources:</p>
+					<ul>
+						<li style="font-size:0.6em">Title Graphics: <href ref="css/reveal.min.css">bitly link</href></li>
+						<li style="font-size:0.6em">Mercury transit: <href ref="css/reveal.min.css">bitly link</href></li>
+						<li style="font-size:0.6em">Venus transit: <href ref="css/reveal.min.css">bitly link</href></li>
+						<li style="font-size:0.6em">Transit anim.: <href ref="css/reveal.min.css">bitly link</href></li>
+					</ul>
+			</section>
 
 			</div>
 		</div>
